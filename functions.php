@@ -46,11 +46,34 @@
      
         wp_register_script( 'backbone-spa-script', get_stylesheet_directory_uri() . '/backbone-spa.js' , array('wp-api') );
         
+	/**
+	 * @var WP_REST_Server $wp_rest_server
+	 */
+	global $wp_rest_server;
+	// Ensure the rest server is intiialized.
+	if ( empty( $wp_rest_server ) ) {
+		/** This filter is documented in wp-includes/rest-api.php */
+		$wp_rest_server_class = apply_filters( 'wp_rest_server_class', 'WP_REST_Server' );
+		$wp_rest_server       = new $wp_rest_server_class();
+		/** This filter is documented in wp-includes/rest-api.php */
+		do_action( 'rest_api_init', $wp_rest_server );
+	}
+	// Load the schema.
+	$schema_request  = new WP_REST_Request( 'GET', '/wp/v2' );
+	$schema_response = $wp_rest_server->dispatch( $schema_request );
+	$schema = null;
+	if ( ! $schema_response->is_error() ) {
+		$schema = $schema_response->get_data();
+	}   
+	    
         wp_localize_script( 'wp-api',  'wpApiSettings', array(
 
             'root' => esc_url_raw( rest_url() ), 
 
-            'nonce' => wp_create_nonce( 'wp_rest' ) )
+            'nonce' => wp_create_nonce( 'wp_rest' ) ),
+	    'versionString' => 'wp/v2/',
+	    'schema'        => $schema,
+	    'cacheSchema'   => true,
 
         );
         
