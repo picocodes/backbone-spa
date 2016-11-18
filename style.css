@@ -1,0 +1,49 @@
+/*
+
+Theme Name: Backbone SPA
+
+Theme URI: http://github.com/picocodes/backbone-spa/ 
+
+Description: Update your permalink to /blog/%postname%/ and name the posts page 'blog'.
+
+Author: Picocodes
+
+Template: twentysixteen 
+
+Version: 1.0.0 License: GNU General Public License v2 or later License 
+
+URI: http://www.gnu.org/licenses/gpl-2.0.html 
+
+Tags: responsive-layout, accessibility-ready 
+
+Text Domain: backbone-spa
+
+*/
+
+/* This creates a cool loading effect */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
